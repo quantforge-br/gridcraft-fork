@@ -14,7 +14,8 @@
 //! `cldr-numbers-full/main/<locale>/numbers.json` and `cldr-dates-full/main/<locale>/ca-gregorian.json`),
 //! which is also what macOS, Android and ICU ship. They were read from those files for en-GB,
 //! en-IN, cs and ru, read from ICU's CLDR 48 data for the Swiss regions and nl-NL, and written
-//! from the same conventions for the other regions.
+//! from the same conventions for the other regions. CLDR data is under the Unicode License v3,
+//! reproduced in `NOTICE` (row in `ATTRIBUTION.md`).
 //! Deliberate choices where operating systems differ from CLDR:
 //! - Short dates use a four-digit year (`dd/mm/yyyy`, where CLDR has `dd/MM/y` or `dd/MM/yy`):
 //!   Excel's short date is the system's, Windows writes four digits, and a two-digit year would
@@ -89,8 +90,9 @@ pub struct Region {
     pub weekdays_abbr: [&'static str; 7],
     pub am_pm: [&'static str; 2],
     pub currency: &'static str,
-    /// The currency format with two decimals, as a canonical code. Where it starts with a quote
-    /// the symbol comes before the number, otherwise after.
+    /// The currency format with the currency's usual decimals (two, or none for the yen and the
+    /// won), as a canonical code. Where it starts with a quote the symbol comes before the number,
+    /// otherwise after.
     pub currency_format: &'static str,
     /// The same with no decimals (for a typed whole amount).
     pub currency_format_int: &'static str,
@@ -698,11 +700,11 @@ pub fn lookup(tag: &str) -> &'static Region {
             _ => "de-DE",
         },
         "fr" => match country.as_str() {
-            "CH" => "fr-CH",
+            "CH" | "LI" => "fr-CH",
             _ => "fr-FR",
         },
         "it" => match country.as_str() {
-            "CH" => "it-CH",
+            "CH" | "LI" => "it-CH",
             _ => "it-IT",
         },
         "nl" => "nl-NL",
@@ -731,7 +733,8 @@ impl Region {
 
     /// Month number (1–12) for a month name as typed: the full name, the abbreviation (with or
     /// without its period) or any prefix of the full name of three or more letters (`Sept`),
-    /// ignoring case. Names with a day (`1 января`) match too.
+    /// ignoring case. `word` is one word: the genitive form used after a day (`января` in
+    /// `1 января`) matches too, and the caller reads the day itself.
     pub fn month_from_name(&self, word: &str) -> Option<u32> {
         let w = word.trim().to_lowercase();
         // Where the abbreviations end in a period (`сент.`, `janv.`), any abbreviation may be typed
@@ -790,37 +793,44 @@ mod tests {
 
     #[test]
     fn lookup_accepts_system_and_browser_tags() {
-        assert_eq!(lookup("pt-BR").tag, "pt-BR");
-        assert_eq!(lookup("pt_BR.UTF-8").tag, "pt-BR");
-        assert_eq!(lookup("pt").tag, "pt-BR");
-        assert_eq!(lookup("pt-PT").tag, "pt-PT");
-        assert_eq!(lookup("pt-AO").tag, "pt-PT");
-        assert_eq!(lookup("de").tag, "de-DE");
-        assert_eq!(lookup("de-AT").tag, "de-DE");
-        assert_eq!(lookup("de_CH.UTF-8").tag, "de-CH");
-        assert_eq!(lookup("de-LI").tag, "de-CH");
-        assert_eq!(lookup("fr-CH").tag, "fr-CH");
-        assert_eq!(lookup("fr-BE").tag, "fr-FR");
-        assert_eq!(lookup("it_CH.UTF-8").tag, "it-CH");
-        assert_eq!(lookup("en-CH").tag, "en-CH");
-        assert_eq!(lookup("nl_NL.UTF-8").tag, "nl-NL");
-        assert_eq!(lookup("nl").tag, "nl-NL");
-        assert_eq!(lookup("en-AU").tag, "en-GB");
-        assert_eq!(lookup("en_GB.UTF-8").tag, "en-GB");
-        assert_eq!(lookup("en-IN").tag, "en-IN");
-        assert_eq!(lookup("en-CA").tag, "en-US");
-        assert_eq!(lookup("zh-Hant").tag, "zh-TW");
-        assert_eq!(lookup("zh-HK").tag, "zh-TW");
-        assert_eq!(lookup("zh").tag, "zh-CN");
-        // Extensions don't replace the region or script; an explicit territory beats the script.
-        assert_eq!(lookup("en-GB-u-ca-gregory").tag, "en-GB");
-        assert_eq!(lookup("zh-Hant-u-nu-latn").tag, "zh-TW");
-        assert_eq!(lookup("zh-Hant-CN").tag, "zh-CN");
-        assert_eq!(lookup("zh-Hans-TW").tag, "zh-TW");
-        assert_eq!(lookup("cs_CZ.UTF-8").tag, "cs-CZ");
-        assert_eq!(lookup("C").tag, "en-US");
-        assert_eq!(lookup("").tag, "en-US");
-        assert_eq!(lookup("xx-YY").tag, "en-US");
+        let cases = [
+            ("pt-BR", "pt-BR"),
+            ("pt_BR.UTF-8", "pt-BR"),
+            ("pt", "pt-BR"),
+            ("pt-PT", "pt-PT"),
+            ("pt-AO", "pt-PT"),
+            ("de", "de-DE"),
+            ("de-AT", "de-DE"),
+            ("de_CH.UTF-8", "de-CH"),
+            ("de-LI", "de-CH"),
+            ("fr-CH", "fr-CH"),
+            ("fr-LI", "fr-CH"),
+            ("fr-BE", "fr-FR"),
+            ("it_CH.UTF-8", "it-CH"),
+            ("it-LI", "it-CH"),
+            ("en-CH", "en-CH"),
+            ("nl_NL.UTF-8", "nl-NL"),
+            ("nl", "nl-NL"),
+            ("en-AU", "en-GB"),
+            ("en_GB.UTF-8", "en-GB"),
+            ("en-IN", "en-IN"),
+            ("en-CA", "en-US"),
+            ("zh-Hant", "zh-TW"),
+            ("zh-HK", "zh-TW"),
+            ("zh", "zh-CN"),
+            // Extensions don't replace the region or script; an explicit territory beats the script.
+            ("en-GB-u-ca-gregory", "en-GB"),
+            ("zh-Hant-u-nu-latn", "zh-TW"),
+            ("zh-Hant-CN", "zh-CN"),
+            ("zh-Hans-TW", "zh-TW"),
+            ("cs_CZ.UTF-8", "cs-CZ"),
+            ("C", "en-US"),
+            ("", "en-US"),
+            ("xx-YY", "en-US"),
+        ];
+        for (tag, expected) in cases {
+            assert_eq!(lookup(tag).tag, expected, "{tag}");
+        }
         assert_eq!(find("DE-de").map(|r| r.tag), Some("de-DE"));
         assert!(find("xx").is_none());
     }
