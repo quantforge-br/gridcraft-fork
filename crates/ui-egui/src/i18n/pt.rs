@@ -1,6 +1,7 @@
 //! Brazilian Portuguese translations for the interface strings in i18n.rs. Labels follow Excel's
 //! pt-BR wording; anything absent falls back to English.
 
+/// Returns the Portuguese translation for `text`, or `None` so callers fall back to English.
 pub(super) fn translate(text: &str) -> Option<&'static str> {
     Some(match text {
         "Paste" => "Colar",
@@ -205,6 +206,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Page Break\nPreview" => "Visualização\nde Quebras de Página",
         "Page\nLayout" => "Layout\nde Página",
         "Formula Bar" => "Barra de Fórmulas",
+        "Name Box" => "Caixa de nome",
+        "Cell Editor" => "Editor de célula",
+        "Font Size" => "Tamanho da fonte",
         "Gridlines" => "Linhas de Grade",
         "Headings" => "Títulos",
         "Zoom" => "Zoom",
@@ -288,11 +292,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Long Date" => "Data Por Extenso",
         "More Number Formats…" => "Mais Formatos de Número…",
         "Financial" => "Financeira",
+        "Recently Used" => "Usadas Recentemente",
         "Logical" => "Lógica",
-        "Date &\nTime" => "Data e\nHora",
-        "Lookup &\nReference" => "Pesquisa e\nReferência",
-        "Math &\nTrig" => "Matemática e\nTrigonometria",
-        "More\nFunctions" => "Mais\nFunções",
+        "More Functions" => "Mais Funções",
         "Page Layout|Orientation" => "Orientação",
         "Display theme" => "Tema de exibição",
         "Animations" => "Animações",
@@ -304,6 +306,7 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Dark" => "Escuro",
         "Sheet Options|View" => "Exibir",
         "Print" => "Imprimir",
+        "Print What" => "O que imprimir",
         // Page Layout view and the Header & Footer tab.
         "Click to add data" => "Clique para adicionar dados",
         "Add header" => "Adicionar cabeçalho",
@@ -467,7 +470,6 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Edit Name" => "Editar Nome",
         "New Name" => "Novo Nome",
         "Format Cells" => "Formatar Células",
-        "Formula Builder" => "Construtor de Fórmulas",
         "Find and Replace" => "Localizar e Substituir",
         "Go To" => "Ir para",
         "Insert Calculated Field" => "Inserir Campo Calculado",
@@ -978,6 +980,14 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
             "Salvamento automático: salvar após cada alteração (pastas de trabalho salvas em um arquivo)"
         }
         "All sheets" => "Todas as planilhas",
+        "Record Macro" => "Gravar Macro",
+        "Stop Recording" => "Parar Gravação",
+        "Use Relative References" => "Usar Referências Relativas",
+        "Run\nMacro" => "Executar Macro",
+        "Macros…" => "Macros…",
+        "Recording" => "Gravando",
+        "New Macro" => "Nova Macro",
+        "Show" => "Mostrar",
         _ => return None,
     })
 }

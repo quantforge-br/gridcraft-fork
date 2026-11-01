@@ -1,5 +1,6 @@
 //! Ukrainian translations for the interface strings in i18n.rs.
 
+/// Returns the Ukrainian translation for `text`, or `None` so callers fall back to English.
 pub(super) fn translate(text: &str) -> Option<&'static str> {
     Some(match text {
         "Paste" => "Вставити",
@@ -203,6 +204,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Page Break\nPreview" => "Попередній перегляд\nрозривів сторінок",
         "Page\nLayout" => "Розмітка\nсторінки",
         "Formula Bar" => "Рядок формул",
+        "Name Box" => "Поле імені",
+        "Cell Editor" => "Редактор клітинки",
+        "Font Size" => "Розмір шрифту",
         "Gridlines" => "Сітка",
         "Headings" => "Заголовки",
         "Zoom" => "Масштаб",
@@ -285,10 +289,7 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "More Number Formats…" => "Інші числові формати…",
         "Financial" => "Фінансові",
         "Logical" => "Логічні",
-        "Date &\nTime" => "Дата і\nчас",
-        "Lookup &\nReference" => "Пошук і\nпосилання",
-        "Math &\nTrig" => "Математичні і\nтригонометричні",
-        "More\nFunctions" => "Інші\nфункції",
+        "More Functions" => "Інші функції",
         "Page Layout|Orientation" => "Орієнтація",
         "Display theme" => "Тема оформлення",
         "Animations" => "Анімація",
@@ -300,6 +301,7 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Dark" => "Темна",
         "Sheet Options|View" => "На екрані",
         "Print" => "Друк",
+        "Print What" => "Що друкувати",
         // Page Layout view and the Header & Footer tab.
         "Click to add data" => "Клацніть, щоб додати дані",
         "Add header" => "Додати верхній колонтитул",
@@ -421,7 +423,7 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Do you want to save the changes you made to {title}?" => "Do you want to save the changes you made to {title}?",
         "Save a copy as .{format}" => "Save a copy as .{format}",
         "Select a chart first." => "Select a chart first.",
-        "Text Box" => "Text Box",
+        "Text Box" => "Напис",
         "Select Data" => "Select Data",
         "Row Height" => "Row Height",
         "Column Width" => "Column Width",
@@ -449,7 +451,6 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Edit Name" => "Edit Name",
         "New Name" => "New Name",
         "Format Cells" => "Format Cells",
-        "Formula Builder" => "Formula Builder",
         "Find and Replace" => "Find and Replace",
         "Go To" => "Go To",
         "Insert Calculated Field" => "Insert Calculated Field",
@@ -706,9 +707,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Hidden" => "Hidden",
         "Search:" => "Search:",
         "e.g. lookup, average, date" => "e.g. lookup, average, date",
-        "Date & Time" => "Date & Time",
-        "Lookup & Reference" => "Lookup & Reference",
-        "Math & Trig" => "Math & Trig",
+        "Date & Time" => "Дата і час",
+        "Lookup & Reference" => "Пошук і посилання",
+        "Math & Trig" => "Математичні і тригонометричні",
         "Statistical" => "Statistical",
         "Engineering" => "Engineering",
         "Database" => "Database",
@@ -976,6 +977,14 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Report Layout" => "Report Layout",
         "Compact" => "Compact",
         "Tabular" => "Tabular",
+        "Record Macro" => "Записати макрос",
+        "Stop Recording" => "Зупинити запис",
+        "Use Relative References" => "Використовувати відносні посилання",
+        "Run\nMacro" => "Запустити макрос",
+        "Macros…" => "Макроси…",
+        "Recording" => "Запис",
+        "New Macro" => "Новий макрос",
+        "Show" => "Показати",
         _ => return None,
     })
 }

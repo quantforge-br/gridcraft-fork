@@ -3,6 +3,9 @@
 //! `header_autofit_fonts.rs` and `keytips.rs` stay separate binaries: they set process-wide state
 //! (the installed-font catalog, a registered test command) that would leak into these tests.
 
+#[path = "../common/mod.rs"]
+mod common;
+
 mod accounting_fill;
 mod advanced_filter;
 mod argument_names;
@@ -12,6 +15,7 @@ mod cell_editor_caret;
 mod cell_pictures;
 mod cf_rule_pick;
 mod chart_resize;
+mod chart_source_layering;
 mod clipboard;
 mod comments_pane;
 mod commit_after_pointing;
@@ -33,7 +37,9 @@ mod filter_list_scroll;
 mod filter_menu_enter;
 mod find_dialog_focus;
 mod floating_pictures;
+mod font_box_filter;
 mod font_size_box;
+mod format_chart_type;
 mod format_painter;
 mod formula_bar;
 mod formula_bar_expand;
@@ -41,11 +47,13 @@ mod formula_locale;
 mod formula_point_headers;
 mod formula_popup;
 mod freeze_handles;
+mod function_library;
 mod go_to_dialog;
 mod header_autofit;
 mod header_column_drag;
 mod host_chrome;
 mod hyperlink_ctrl_click;
+mod hyperlink_dialog;
 mod in_cell_editor_size;
 mod in_cell_editor_wrap;
 mod insert_copied_cells;
@@ -53,7 +61,10 @@ mod interaction;
 mod interface_scale;
 mod keyboard_shortcuts;
 mod keytips_generated;
+mod macro_editor;
+mod macros_ui;
 mod menu_hover;
+mod merge_center_label;
 mod merged_cells;
 mod more_colors;
 mod native_print;
@@ -70,6 +81,7 @@ mod pivot_show_details;
 mod pivot_show_details_menu;
 mod popup_dismissal;
 mod protect_password;
+mod protected_cell;
 mod ribbon_layout;
 mod right_to_left;
 mod scroll_position;
@@ -85,6 +97,7 @@ mod show_objects;
 mod shrink_to_fit;
 mod sort_dialog_columns;
 mod status_bar_menu;
+mod support;
 mod symbol_glyphs;
 mod system_theme;
 mod tab_split;
