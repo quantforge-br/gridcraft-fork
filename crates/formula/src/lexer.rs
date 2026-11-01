@@ -178,7 +178,15 @@ fn structured_ref(
     Ok(j)
 }
 
-fn number(src: &str, chars: &[(usize, char)], locale: crate::FormulaLocale, array_depth: usize, i: usize, start: usize, out: &mut Vec<Token>) -> Result<usize, LexError> {
+fn number(
+    src: &str,
+    chars: &[(usize, char)],
+    locale: crate::FormulaLocale,
+    array_depth: usize,
+    i: usize,
+    start: usize,
+    out: &mut Vec<Token>,
+) -> Result<usize, LexError> {
     let ch = |index| char_at(chars, index);
     let mut j = i;
     while ch(j).is_some_and(|c| c.is_ascii_digit()) {
