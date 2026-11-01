@@ -22,6 +22,7 @@ The Spanish function names:
 | `CONTAR.SI` | `COUNTIF` |
 | `BUSCARV` | `VLOOKUP` |
 | `HOY` | `TODAY` |
+| `VNA`, `TIR`, `PAGO`, `VA`, `VF` | `NPV`, `IRR`, `PMT`, `PV`, `FV` |
 | `VERDADERO`, `FALSO` | `TRUE`, `FALSE` (literals or function calls) |
 | `#¡VALOR!`, `#N/D`, `#¿NOMBRE?`… | `#VALUE!`, `#N/A`, `#NAME?`… |
 | `[#Todo]`, `[#Datos]`, `[#Encabezados]`, `[#Totales]`, `[#Esta fila]` | `[#All]`, `[#Data]`, `[#Headers]`, `[#Totals]`, `[#This Row]` |
@@ -35,8 +36,10 @@ too. A worksheet function passed by name (`BYROW(A1:B3;SUMA)`) is spelled like i
 
 A formula language is a data file, `crates/formula/src/input/<language>.rs`: its function names,
 booleans, errors, table specifiers and separators, each word with its source. Adding a language
-means adding that file and one `FormulaLocale` variant; the lexer, parser and printer read every
-language through the same table.
+means adding that file with its `mod` line in `crates/formula/src/input.rs`, a `FormulaLocale`
+variant with its entry in `FormulaLocale::ALL` and its arm in `dialect()`, and the interface
+language's arm in `Language::formula_locale` (`crates/ui-egui/src/i18n.rs`). No parsing code
+changes: the lexer, parser and printer read every language through the same table.
 
 The cell editor, formula bar, Show Formulas, autocomplete, the Formula ribbon, Insert Function, and argument hints
 use the selected formula language. Common Spanish function help is translated; functions
@@ -47,6 +50,8 @@ when it starts so switching the preference cannot reinterpret unfinished input.
 Workbook/sheet names, table names, LET bindings and LAMBDA parameters take precedence over
 aliases. Text, sheet names and table column names are unchanged. When a localized spelling
 would collide with a name, displayed formulas retain the canonical spelling to preserve meaning.
+A typed local function name always means the built-in, as its canonical name does in a call:
+`LET(SUM;LAMBDA(x;x*2);SUMA(3))` is 3.
 
 Stored formulas, XLSX import/export, engine commands, control/API calls, CLI evaluation and
 clipboard exchange retain strict English syntax. This also applies to advanced dialogs such as

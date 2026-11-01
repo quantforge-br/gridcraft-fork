@@ -8,6 +8,11 @@ pub const REF_COLOR_COUNT: usize = 8;
 
 #[derive(Clone, Debug)]
 pub struct EditState {
+    /// The workbook (`DocState::uid`) the draft belongs to: it is drawn and committed only there.
+    pub doc: u64,
+    /// The window it was typed in: switching to another window, even on the same workbook,
+    /// commits it there first (`None` until the app sets it).
+    pub window: Option<u64>,
     pub sheet: usize,
     /// Syntax of this edit, captured when it starts (prevents a language switch reinterpreting it).
     pub locale: gridcraft_engine::formula::FormulaLocale,
@@ -39,12 +44,18 @@ pub struct EditState {
     pub completion: Option<String>,
     /// Move the caret to the end on the next frame.
     pub caret_to_end: bool,
+    /// The cell's text when an F2-style edit began. Committing it unchanged leaves the cell alone
+    /// (no undo step, the workbook stays clean). `None` for an edit started by typing.
+    pub original: Option<String>,
 }
 
 impl EditState {
-    pub fn new(sheet: usize, cell: CellRef, text: String, enter_mode: bool, from_formula_bar: bool) -> EditState {
+    pub fn new(doc: u64, sheet: usize, cell: CellRef, text: String, enter_mode: bool, from_formula_bar: bool) -> EditState {
         let caret = text.chars().count();
+        let original = (!enter_mode).then(|| text.clone());
         EditState {
+            doc,
+            window: None,
             sheet,
             locale: Default::default(),
             cell,
@@ -63,6 +74,7 @@ impl EditState {
             keep_selection: false,
             caret_to_end: true,
             completion: None,
+            original,
         }
     }
 
@@ -201,8 +213,7 @@ impl EditState {
             return false;
         }
         let head = before.strip_suffix('(').unwrap_or(before);
-        let name: String =
-            head.chars().rev().take_while(|c| c.is_ascii_alphanumeric() || *c == '.' || *c == '_').collect::<String>().chars().rev().collect();
+        let name: String = head.chars().rev().take_while(|c| is_name_char(*c)).collect::<String>().chars().rev().collect();
         if name.is_empty() || name.starts_with(|c: char| c.is_ascii_digit()) {
             return false;
         }
@@ -269,11 +280,12 @@ fn is_name_char(c: char) -> bool {
 }
 
 /// References in formula text with their byte spans and colour index (same reference text ⇒
-/// same colour), for colouring the editor and outlining ranges on the grid.
-pub fn formula_refs(text: &str) -> Vec<(usize, usize, RangeRef, Option<String>, usize)> {
+/// same colour), for colouring the editor and outlining ranges on the grid. `locale` is the
+/// formula language the text is written in (the editor's).
+pub fn formula_refs(text: &str, locale: gridcraft_engine::formula::FormulaLocale) -> Vec<(usize, usize, RangeRef, Option<String>, usize)> {
     let body = text.strip_prefix('=').or_else(|| text.strip_prefix('+')).unwrap_or(text);
     let offset = text.len() - body.len();
-    let Ok(toks) = gridcraft_engine::formula::lexer::tokenize(body) else { return vec![] };
+    let Ok(toks) = gridcraft_engine::formula::lexer::tokenize_locale(body, locale) else { return vec![] };
     let mut out: Vec<(usize, usize, RangeRef, Option<String>, usize)> = Vec::new();
     let mut seen: Vec<String> = Vec::new();
     let mut i = 0;
@@ -386,7 +398,7 @@ mod tests {
 
     #[test]
     fn point_mode() {
-        let mut e = EditState::new(0, CellRef::new(0, 0), "=SUM(".into(), true, false);
+        let mut e = EditState::new(1, 0, CellRef::new(0, 0), "=SUM(".into(), true, false);
         assert!(e.can_point());
         e.insert_ref("A1");
         assert_eq!(e.text, "=SUM(A1");
@@ -396,14 +408,14 @@ mod tests {
         e.caret += 1;
         e.point = None;
         assert!(e.can_point());
-        let e2 = EditState::new(0, CellRef::new(0, 0), "hello".into(), true, false);
+        let e2 = EditState::new(1, 0, CellRef::new(0, 0), "hello".into(), true, false);
         assert!(!e2.can_point());
     }
 
     /// Autocomplete lists the names a prefix matches, and the hint finds the function being typed.
     #[test]
     fn a_pasted_name_replaces_the_selected_text() {
-        let mut e = EditState::new(0, CellRef::new(0, 0), "=OldName+1".into(), false, false);
+        let mut e = EditState::new(1, 0, CellRef::new(0, 0), "=OldName+1".into(), false, false);
         e.sync_caret = false;
         (e.anchor, e.caret) = (8, 1);
         e.autocomplete = vec!["SUM".into()];
@@ -419,12 +431,12 @@ mod tests {
     #[test]
     fn autocomplete_and_hints() {
         let names: Vec<String> = ["SUM", "SUMIF", "SUMPRODUCT", "AVERAGE"].iter().map(|s| s.to_string()).collect();
-        let mut e = EditState::new(0, CellRef::new(0, 0), "=su".into(), true, false);
+        let mut e = EditState::new(1, 0, CellRef::new(0, 0), "=su".into(), true, false);
         e.update_autocomplete(&names);
         assert_eq!(e.autocomplete.len(), 3);
         assert!(e.accept_autocomplete());
         assert_eq!(e.text, "=SUM(");
-        let e = EditState::new(0, CellRef::new(0, 0), "=IF(A1>0,SUM(B1,".into(), true, false);
+        let e = EditState::new(1, 0, CellRef::new(0, 0), "=IF(A1>0,SUM(B1,".into(), true, false);
         assert_eq!(e.current_function(), Some(("SUM".into(), 1)));
     }
 
@@ -433,23 +445,34 @@ mod tests {
     fn autocomplete_and_hints_take_local_names_in_any_script() {
         // Local names arrive in English order (ZÄHLENWENNS is COUNTIFS); the list shows them sorted.
         let names: Vec<String> = ["ZÄHLENWENNS", "ZÄHLENWENN", "ZEIT", "СУММ"].iter().map(|s| s.to_string()).collect();
-        let mut e = EditState::new(0, CellRef::new(0, 0), "=zähl".into(), true, false);
+        let mut e = EditState::new(1, 0, CellRef::new(0, 0), "=zähl".into(), true, false);
         e.update_autocomplete(&names);
         assert_eq!(e.autocomplete, ["ZÄHLENWENN", "ZÄHLENWENNS"]);
         assert!(e.accept_autocomplete());
         assert_eq!(e.text, "=ZÄHLENWENN(");
-        let mut e = EditState::new(0, CellRef::new(0, 0), "=SI(A1>0;año(B1;".into(), true, false);
+        let mut e = EditState::new(1, 0, CellRef::new(0, 0), "=SI(A1>0;año(B1;".into(), true, false);
         e.locale = gridcraft_engine::formula::FormulaLocale::Es;
         assert_eq!(e.current_function(), Some(("AÑO".into(), 1)));
+        // Ctrl+Shift+A reads the whole name before the caret in any script: `ÁSUMIF` is no SUMIF.
+        let mut e = EditState::new(1, 0, CellRef::new(0, 0), "=ÁSUMIF(".into(), true, false);
+        assert!(!e.insert_argument_names(crate::i18n::Language::En));
+        assert_eq!(e.text, "=ÁSUMIF(");
     }
 
     #[test]
     fn ref_spans() {
-        let r = formula_refs("=A1+B2:C3*a1+Sheet2!D4");
+        let r = formula_refs("=A1+B2:C3*a1+Sheet2!D4", gridcraft_engine::formula::FormulaLocale::En);
         assert_eq!(r.len(), 4);
         assert_eq!(r[0].4, r[2].4); // A1 and a1 share a colour
         assert_eq!(r[1].2.a1(), "B2:C3");
         assert_eq!(r[3].3.as_deref(), Some("Sheet2"));
+    }
+
+    #[test]
+    fn ref_spans_in_the_formula_language() {
+        // Spanish errors, booleans, decimal commas and array columns are not English syntax.
+        let refs = formula_refs("=SI.ERROR(BUSCARV(A1;B2:C9;2;FALSO);#N/D)+{1,5\\2}", gridcraft_engine::formula::FormulaLocale::Es);
+        assert_eq!(refs.iter().map(|r| r.2.a1()).collect::<Vec<_>>(), ["A1", "B2:C9"]);
     }
 
     #[test]
@@ -464,7 +487,7 @@ mod tests {
 
     #[test]
     fn whole_row_and_column_ref_spans() {
-        let refs = formula_refs("=SUM(C:C,4:6,$D:$E,Sheet2!7:8)");
+        let refs = formula_refs("=SUM(C:C,4:6,$D:$E,Sheet2!7:8)", gridcraft_engine::formula::FormulaLocale::En);
         assert_eq!(refs.len(), 4);
         assert_eq!(refs[0].2.a1(), "C:C");
         assert_eq!(refs[1].2.a1(), "4:6");
@@ -475,11 +498,11 @@ mod tests {
 
     #[test]
     fn inserting_a_union_keeps_each_reference_separately_pointed() {
-        let mut edit = EditState::new(0, CellRef::new(0, 0), "=SUM(".into(), true, false);
+        let mut edit = EditState::new(1, 0, CellRef::new(0, 0), "=SUM(".into(), true, false);
         edit.insert_ref("C:C");
         edit.append_ref("E:E");
         assert_eq!(edit.text, "=SUM(C:C,E:E");
-        assert_eq!(formula_refs(&edit.text).iter().map(|r| r.2.a1()).collect::<Vec<_>>(), ["C:C", "E:E"]);
+        assert_eq!(formula_refs(&edit.text, edit.locale).iter().map(|r| r.2.a1()).collect::<Vec<_>>(), ["C:C", "E:E"]);
         assert_eq!(edit.point, Some((9, 12)));
         assert!(edit.can_point());
     }
