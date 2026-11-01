@@ -5,6 +5,7 @@
 //! usual in Romanian software ("Salvare", "Inserare…") and messages address the user formally.
 //! An AI-assisted draft (Claude) for a Romanian-speaking contributor, pending native-speaker review.
 
+/// Returns the Romanian translation for `text`, or `None` so callers fall back to English.
 pub(super) fn translate(text: &str) -> Option<&'static str> {
     Some(match text {
         "Paste" => "Lipire",
@@ -208,6 +209,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Page Break\nPreview" => "Examinare\nsfârșituri de pagină",
         "Page\nLayout" => "Aspect\npagină",
         "Formula Bar" => "Bară de formule",
+        "Name Box" => "Casetă de nume",
+        "Cell Editor" => "Editor de celule",
+        "Font Size" => "Dimensiune font",
         "Gridlines" => "Linii de grilă",
         "Headings" => "Titluri",
         "Zoom" => "Zoom",
@@ -290,10 +294,7 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "More Number Formats…" => "Mai multe formate de număr…",
         "Financial" => "Financiare",
         "Logical" => "Logice",
-        "Date &\nTime" => "Dată și\noră",
-        "Lookup &\nReference" => "Căutare și\nreferință",
-        "Math &\nTrig" => "Matematică și\ntrigonometrie",
-        "More\nFunctions" => "Mai multe\nfuncții",
+        "More Functions" => "Mai multe funcții",
         "Page Layout|Orientation" => "Orientare",
         "Display theme" => "Temă de afișare",
         "Animations" => "Animații",
@@ -305,6 +306,7 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Dark" => "Întunecată",
         "Sheet Options|View" => "Vizualizare",
         "Print" => "Imprimare",
+        "Print What" => "Ce imprimați",
         "Click to add data" => "Faceți clic pentru a adăuga date",
         "Add header" => "Adăugare antet",
         "Add footer" => "Adăugare subsol",
@@ -451,7 +453,6 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Edit Name" => "Editare nume",
         "New Name" => "Nume nou",
         "Format Cells" => "Formatare celule",
-        "Formula Builder" => "Generator de formule",
         "Find and Replace" => "Găsire și înlocuire",
         "Go To" => "Salt la",
         "Insert Calculated Field" => "Inserare câmp calculat",
@@ -1034,6 +1035,14 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Format Chart Area…" => "Formatare zonă diagramă…",
         "Error checking options" => "Opțiuni de verificare a erorilor",
         "Paste formulas that refer to the copied cells" => "Lipire formule care fac referire la celulele copiate",
+        "Record Macro" => "Înregistrare macrocomandă",
+        "Stop Recording" => "Oprire înregistrare",
+        "Use Relative References" => "Utilizare referințe relative",
+        "Run\nMacro" => "Rulare macrocomandă",
+        "Macros…" => "Macrocomenzi…",
+        "Recording" => "Înregistrare",
+        "New Macro" => "Macrocomandă nouă",
+        "Show" => "Afișare",
         _ => return None,
     })
 }

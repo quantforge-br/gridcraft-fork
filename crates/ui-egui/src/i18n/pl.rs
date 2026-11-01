@@ -1,3 +1,4 @@
+/// Returns the Polish translation for `text`, or `None` so callers fall back to English.
 pub(super) fn translate(text: &str) -> Option<&'static str> {
     Some(match text {
         "Paste" => "Wklej",
@@ -201,6 +202,9 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Page Break\nPreview" => "Podgląd\npodziału stron",
         "Page\nLayout" => "Układ\nstrony",
         "Formula Bar" => "Pasek formuły",
+        "Name Box" => "Pole nazwy",
+        "Cell Editor" => "Edytor komórki",
+        "Font Size" => "Rozmiar czcionki",
         "Gridlines" => "Linie siatki",
         "Headings" => "Nagłówki",
         "Zoom" => "Powiększenie",
@@ -283,10 +287,7 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "More Number Formats…" => "Więcej formatów liczb…",
         "Financial" => "Finansowe",
         "Logical" => "Logiczne",
-        "Date &\nTime" => "Data i\ngodzina",
-        "Lookup &\nReference" => "Wyszukiwanie\ni odwołania",
-        "Math &\nTrig" => "Matematyczne i\ntrygonometryczne",
-        "More\nFunctions" => "Więcej\nfunkcji",
+        "More Functions" => "Więcej funkcji",
         "Page Layout|Orientation" => "Orientacja",
         "Display theme" => "Motyw wyświetlania",
         "Animations" => "Animacje",
@@ -298,6 +299,7 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Dark" => "Ciemny",
         "Sheet Options|View" => "Wyświetl",
         "Print" => "Drukuj",
+        "Print What" => "Co drukować",
         "Click to add data" => "Kliknij, aby dodać dane",
         "Add header" => "Dodaj nagłówek",
         "Add footer" => "Dodaj stopkę",
@@ -445,7 +447,6 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Edit Name" => "Edytowanie nazwy",
         "New Name" => "Nowa nazwa",
         "Format Cells" => "Formatowanie komórek",
-        "Formula Builder" => "Konstruktor formuł",
         "Find and Replace" => "Znajdowanie i zamienianie",
         "Go To" => "Przechodzenie do",
         "Insert Calculated Field" => "Wstawianie pola obliczeniowego",
@@ -972,6 +973,14 @@ pub(super) fn translate(text: &str) -> Option<&'static str> {
         "Report Layout" => "Układ raportu",
         "Compact" => "Kompaktowy",
         "Tabular" => "Tabelaryczny",
+        "Record Macro" => "Zarejestruj makro",
+        "Stop Recording" => "Zatrzymaj rejestrowanie",
+        "Use Relative References" => "Użyj odwołań względnych",
+        "Run\nMacro" => "Uruchom makro",
+        "Macros…" => "Makra…",
+        "Recording" => "Rejestrowanie",
+        "New Macro" => "Nowe makro",
+        "Show" => "Pokaż",
         _ => return None,
     })
 }
