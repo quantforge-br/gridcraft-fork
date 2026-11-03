@@ -183,7 +183,9 @@ pub fn range_text_in(wb: &Workbook, sheet: usize, r: RangeRef, region: &Region) 
             }
             first = false;
             let t = cell_text_in(wb, sh, CellRef::new(row, col), region);
-            if t.contains(['\t', '\n', '"']) {
+            // Like Excel, only text with a tab or line break is quoted (its quotes doubled);
+            // `say "hi"` is copied as it is (#2225).
+            if t.contains(['\t', '\n', '\r']) {
                 out.push('"');
                 out.push_str(&t.replace('"', "\"\""));
                 out.push('"');
