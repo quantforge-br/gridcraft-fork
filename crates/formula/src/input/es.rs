@@ -76,7 +76,7 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("BITRSHIFT", "BIT.DESPLDCHA"),
         ("BITXOR", "BIT.XO"),
         ("CEILING", "MULTIPLO.SUPERIOR"),
-        // reviewed: vote was truncated "MATH"; page title/examples MULTIPLO.SUPERIOR.MAT; ONLYOFFICE, zekke, PhpSpreadsheet agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: vote was truncated "MATH"; page title/examples MULTIPLO.SUPERIOR.MAT; zekke, PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("CEILING.MATH", "MULTIPLO.SUPERIOR.MAT"),
         ("CEILING.PRECISE", "MULTIPLO.SUPERIOR.EXACTO"),
         ("CELL", "CELDA"),
@@ -91,7 +91,7 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("CHITEST", "PRUEBA.CHI"),
         ("CHOOSE", "ELEGIR"),
         ("CHOOSECOLS", "ELEGIRCOLS"),
-        // reviewed: page example ELEGIRFILAS; ONLYOFFICE, zekke agree; page syntax is untranslated MT | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page example ELEGIRFILAS; zekke agrees; page syntax is untranslated MT | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("CHOOSEROWS", "ELEGIRFILAS"),
         ("CLEAN", "LIMPIAR"),
         ("CODE", "CODIGO"),
@@ -151,7 +151,7 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("DOLLARDE", "MONEDA.DEC"),
         ("DOLLARFR", "MONEDA.FRAC"),
         ("DPRODUCT", "BDPRODUCTO"),
-        // reviewed: page syntax/examples EXCLUIR; ONLYOFFICE, zekke agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page syntax/examples EXCLUIR; zekke agrees | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("DROP", "EXCLUIR"),
         ("DSTDEV", "BDDESVEST"),
         ("DSTDEVP", "BDDESVESTP"),
@@ -161,7 +161,7 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("DVARP", "BDVARP"),
         ("EDATE", "FECHA.MES"),
         ("EFFECT", "INT.EFECTIVO"),
-        // reviewed: page syntax URLCODIF(texto); zekke, PhpSpreadsheet agree; title is untranslated MT | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page syntax URLCODIF(texto); zekke, PhpSpreadsheet agree; title is untranslated MT | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("ENCODEURL", "URLCODIF"),
         ("EOMONTH", "FIN.MES"),
         ("ERF", "FUN.ERROR"),
@@ -171,7 +171,7 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("ERROR.TYPE", "TIPO.DE.ERROR"),
         ("EVEN", "REDONDEA.PAR"),
         ("EXACT", "IGUAL"),
-        // reviewed: page syntax/examples and nav; ONLYOFFICE, zekke agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page syntax/examples and nav; zekke agrees | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("EXPAND", "EXPANDIR"),
         ("EXPON.DIST", "DISTR.EXP.N"),
         ("EXPONDIST", "DISTR.EXP"),
@@ -184,11 +184,11 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("FALSE", "FALSO"),
         ("FDIST", "DISTR.F"),
         ("FILTER", "FILTRAR"),
-        // reviewed: page meta/syntax; zekke, PhpSpreadsheet agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page meta/syntax; zekke, PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("FILTERXML", "XMLFILTRO"),
-        // reviewed: FIND/FINDB page absent/retired in cache; ONLYOFFICE, PhpSpreadsheet, HyperFormula agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: FIND/FINDB page absent/retired in cache; MS text-functions reference "Funciones ENCONTRAR y ENCONTRARB", zekke and PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json | https://support.microsoft.com/es-es/excel/text-functions-reference
         ("FIND", "ENCONTRAR"),
-        // reviewed: MS text-functions reference "Funciones ENCONTRAR y ENCONTRARB"; perfectxl, excel-translator and ONLYOFFICE agree (zekke has English FINDB) | sources: https://support.microsoft.com/es-es/excel/text-functions-reference | https://www.perfectxl.com/academy/functions/translations/english-spanish/ | https://en.excel-translator.de/functions/text/
+        // reviewed: MS text-functions reference "Funciones ENCONTRAR y ENCONTRARB"; perfectxl and excel-translator agree (zekke has English FINDB) | sources: https://support.microsoft.com/es-es/excel/text-functions-reference | https://www.perfectxl.com/academy/functions/translations/english-spanish/ | https://en.excel-translator.de/functions/text/
         ("FINDB", "ENCONTRARB"),
         ("FINV", "DISTR.F.INV"),
         ("FISHERINV", "PRUEBA.FISHER.INV"),
@@ -203,7 +203,7 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("FORECAST.ETS.CONFINT", "PRONOSTICO.ETS.CONFINT"),
         // reviewed: MS page syntax PRONOSTICO.ETS.ESTACIONALIDAD; excel-translator agrees. FORECAST.ETS.STAT stays English: the MS title says PRONOSTICO.ETS.ESTADISTICA, its body and excel-translator PRONOSTICO.ETS.STAT | sources: https://support.microsoft.com/es-es/excel/functions/forecast-ets-seasonality-function | https://en.excel-translator.de/functions/statistical/
         ("FORECAST.ETS.SEASONALITY", "PRONOSTICO.ETS.ESTACIONALIDAD"),
-        // reviewed: page syntax and meta; PhpSpreadsheet agrees | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page syntax and meta; PhpSpreadsheet agrees | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("FORECAST.LINEAR", "PRONOSTICO.LINEAL"),
         ("FORMULATEXT", "FORMULATEXTO"),
         ("FREQUENCY", "FRECUENCIA"),
@@ -226,7 +226,7 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("HEX2DEC", "HEX.A.DEC"),
         ("HEX2OCT", "HEX.A.OCT"),
         ("HLOOKUP", "BUSCARH"),
-        // reviewed: page title/syntax/examples HORA; all independent sources agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page title/syntax/examples HORA; all independent sources agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("HOUR", "HORA"),
         ("HSTACK", "APILARH"),
         ("HYPERLINK", "HIPERVINCULO"),
@@ -268,38 +268,38 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("INTRATE", "TASA.INT"),
         ("IPMT", "PAGOINT"),
         ("IRR", "TIR"),
-        // reviewed: IS* page examples/meta list ESBLANCO; ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: IS* page examples/meta list ESBLANCO; zekke, PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("ISBLANK", "ESBLANCO"),
-        // reviewed: IS* page examples/meta list ESERR; ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: IS* page examples/meta list ESERR; zekke, PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("ISERR", "ESERR"),
-        // reviewed: IS* page examples/meta list ESERROR; ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: IS* page examples/meta list ESERROR; zekke, PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("ISERROR", "ESERROR"),
         ("ISEVEN", "ES.PAR"),
         ("ISFORMULA", "ESFORMULA"),
-        // reviewed: IS* page examples/meta list ESLOGICO; ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: IS* page examples/meta list ESLOGICO; zekke, PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("ISLOGICAL", "ESLOGICO"),
-        // reviewed: IS* page examples/meta list ESNOD; ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: IS* page examples/meta list ESNOD; zekke, PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("ISNA", "ESNOD"),
-        // reviewed: IS* page examples/meta list ESNOTEXTO; ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: IS* page examples/meta list ESNOTEXTO; zekke, PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("ISNONTEXT", "ESNOTEXTO"),
-        // reviewed: IS* page examples/meta list ESNUMERO; ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: IS* page examples/meta list ESNUMERO; zekke, PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("ISNUMBER", "ESNUMERO"),
         ("ISO.CEILING", "MULTIPLO.SUPERIOR.ISO"),
         ("ISODD", "ES.IMPAR"),
         ("ISOWEEKNUM", "ISO.NUM.DE.SEMANA"),
         ("ISPMT", "INT.PAGO.DIR"),
-        // reviewed: IS* page examples/meta list ESREF; ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: IS* page examples/meta list ESREF; zekke, PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("ISREF", "ESREF"),
-        // reviewed: IS* page examples/meta list ESTEXTO; ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: IS* page examples/meta list ESTEXTO; zekke, PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("ISTEXT", "ESTEXTO"),
         ("KURT", "CURTOSIS"),
         ("LARGE", "K.ESIMO.MAYOR"),
         ("LCM", "M.C.M"),
         ("LEFT", "IZQUIERDA"),
         ("LEFTB", "IZQUIERDAB"),
-        // reviewed: page meta/syntax: LARGO(texto), LARGOB; ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula agree; vote picked English page title | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page meta/syntax: LARGO(texto), LARGOB; zekke, PhpSpreadsheet agree; vote picked English page title | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("LEN", "LARGO"),
-        // reviewed: page meta says LARGOB devuelve el número de bytes; ONLYOFFICE, zekke agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page meta says LARGOB devuelve el número de bytes; zekke agrees | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("LENB", "LARGOB"),
         ("LINEST", "ESTIMACION.LINEAL"),
         ("LOGEST", "ESTIMACION.LOGARITMICA"),
@@ -358,7 +358,7 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("OR", "O"),
         ("PDURATION", "P.DURACION"),
         ("PERCENTILE", "PERCENTIL"),
-        // reviewed: vote was truncated "EXC"; ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula and Microsoft nav list agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: vote was truncated "EXC"; zekke, PhpSpreadsheet and Microsoft nav list agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("PERCENTILE.EXC", "PERCENTIL.EXC"),
         ("PERCENTILE.INC", "PERCENTIL.INC"),
         // reviewed: a user formula =AGRUPARPOR(A1:A15;D1:D15;PORCENTAJEDE;;1) on Microsoft Q&A; desafiandoexcel and exceleinfo agree (the MS function page keeps PERCENTOF) | sources: https://learn.microsoft.com/es-es/answers/questions/5373070/funci-n-agruparpor | https://desafiandoexcel.com/funciones-de-excel/funcion-porcentajede-en-excel/
@@ -386,7 +386,7 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("QUARTILE.INC", "CUARTIL.INC"),
         ("QUOTIENT", "COCIENTE"),
         ("RADIANS", "RADIANES"),
-        // reviewed: vote was truncated "ALEAT"; page examples contain ALEATORIO; ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: vote was truncated "ALEAT"; page examples contain ALEATORIO; zekke, PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("RAND", "ALEATORIO"),
         ("RANDARRAY", "MATRIZALEAT"),
         ("RANDBETWEEN", "ALEATORIO.ENTRE"),
@@ -396,12 +396,12 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("RATE", "TASA"),
         ("RECEIVED", "CANTIDAD.RECIBIDA"),
         ("REGEXEXTRACT", "REGEXEXTRACCION"),
-        // reviewed: page title/meta; ONLYOFFICE agrees (zekke English) | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page title/meta agree (zekke English) | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("REGEXREPLACE", "REGEXREEMPLAZAR"),
-        // reviewed: page title/meta; ONLYOFFICE agrees (zekke English) | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page title/meta agree (zekke English) | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("REGEXTEST", "REGEXPRUEBA"),
         ("REPLACE", "REEMPLAZAR"),
-        // reviewed: REEMPLAZAR page meta lists REEMPLAZARB; ONLYOFFICE, zekke agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: REEMPLAZAR page meta lists REEMPLAZARB; zekke agrees | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("REPLACEB", "REEMPLAZARB"),
         ("REPT", "REPETIR"),
         ("RIGHT", "DERECHA"),
@@ -422,7 +422,7 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("SHEETS", "HOJAS"),
         ("SIGN", "SIGNO"),
         ("SIN", "SENO"),
-        // reviewed: page syntax SENOH(número); ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula agree; consistent with SENO/ASENOH | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page syntax SENOH(número); zekke, PhpSpreadsheet agree; consistent with SENO/ASENOH | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("SINH", "SENOH"),
         ("SKEW", "COEFICIENTE.ASIMETRIA"),
         ("SKEW.P", "COEFICIENTE.ASIMETRIA.P"),
@@ -458,27 +458,27 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("T.INV.2T", "INV.T.2C"),
         ("T.TEST", "PRUEBA.T.N"),
         ("TAKE", "TOMAR"),
-        // reviewed: syntax+examples+Microsoft nav list say TEST; page title/meta and ONLYOFFICE say TES; zekke/PhpSpreadsheet/HyperFormula say TEST | sources: MS nav+syntax, PhpSpreadsheet, zekke, HyperFormula (TEST); ONLYOFFICE TES
+        // reviewed: syntax+examples+Microsoft nav list say TEST; page title/meta say TES; zekke/PhpSpreadsheet say TEST | sources: MS nav+syntax, PhpSpreadsheet, zekke (TEST)
         ("TBILLEQ", "LETRA.DE.TEST.EQV.A.BONO"),
         ("TBILLPRICE", "LETRA.DE.TES.PRECIO"),
         ("TBILLYIELD", "LETRA.DE.TES.RENDTO"),
         ("TDIST", "DISTR.T"),
         ("TEXT", "TEXTO"),
-        // reviewed: page meta and example TEXTODESPUES; ONLYOFFICE, zekke agree; syntax line is untranslated MT | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page meta and example TEXTODESPUES; zekke agrees; syntax line is untranslated MT | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("TEXTAFTER", "TEXTODESPUES"),
-        // reviewed: page example TEXTOANTES; ONLYOFFICE, zekke agree; syntax line is untranslated MT | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page example TEXTOANTES; zekke agrees; syntax line is untranslated MT | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("TEXTBEFORE", "TEXTOANTES"),
         ("TEXTJOIN", "UNIRCADENAS"),
-        // reviewed: page syntax/examples, nav; ONLYOFFICE, zekke agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page syntax/examples, nav; zekke agrees | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("TEXTSPLIT", "DIVIDIRTEXTO"),
-        // reviewed: page meta/examples NSHORA (HORA is HOUR); ONLYOFFICE, zekke, PhpSpreadsheet, HyperFormula agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page meta/examples NSHORA (HORA is HOUR); zekke, PhpSpreadsheet agree | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("TIME", "NSHORA"),
         ("TIMEVALUE", "HORANUMERO"),
         ("TINV", "DISTR.T.INV"),
-        // reviewed: page syntax/examples, nav; ONLYOFFICE, zekke agree | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page syntax/examples, nav; zekke agrees | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("TOCOL", "ENCOL"),
         ("TODAY", "HOY"),
-        // reviewed: Microsoft nav list ENFILA; ONLYOFFICE, zekke agree; page body untranslated MT | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: Microsoft nav list ENFILA; zekke agrees; page body untranslated MT | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("TOROW", "ENFILA"),
         ("TRANSPOSE", "TRANSPONER"),
         ("TREND", "TENDENCIA"),
@@ -486,13 +486,13 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("TRIMMEAN", "MEDIA.ACOTADA"),
         // reviewed: MS page title RECORTAR.RANGO (syntax line garbled); desafiandoexcel and mundo-datos agree | sources: https://support.microsoft.com/es-es/excel/functions/trimrange-function | https://desafiandoexcel.com/funciones-de-excel/funcion-recortar-rango-en-excel/ | https://mundo-datos.com/recortar-rango/
         ("TRIMRANGE", "RECORTAR.RANGO"),
-        // reviewed: page meta/examples VERDADERO; all independent sources agree; vote picked truncated "VERDAD" | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page meta/examples VERDADERO; all independent sources agree; vote picked truncated "VERDAD" | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("TRUE", "VERDADERO"),
         ("TRUNC", "TRUNCAR"),
         ("TTEST", "PRUEBA.T"),
         ("TYPE", "TIPO"),
         ("UNICHAR", "UNICAR"),
-        // reviewed: page title "Función UNICOS" and meta; HyperFormula UNICOS; ONLYOFFICE/zekke only have English fallback | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: page title "Función UNICOS" and meta; zekke only has an English fallback | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("UNIQUE", "UNICOS"),
         ("UPPER", "MAYUSC"),
         ("VALUE", "VALOR"),
@@ -507,9 +507,9 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("WEIBULL.DIST", "DISTR.WEIBULL"),
         ("WORKDAY", "DIA.LAB"),
         ("WORKDAY.INTL", "DIA.LAB.INTL"),
-        // reviewed: Microsoft nav list AJUSTARCOLS + ONLYOFFICE; zekke English; page body untranslated MT | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: Microsoft nav list AJUSTARCOLS; zekke English; page body untranslated MT | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("WRAPCOLS", "AJUSTARCOLS"),
-        // reviewed: Microsoft nav list AJUSTARFILAS + ONLYOFFICE; zekke English; page body untranslated MT | sources: OO=https://raw.githubusercontent.com/ONLYOFFICE/web-apps/master/apps/spreadsheeteditor/main/resources/formula-lang/es.json | ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
+        // reviewed: Microsoft nav list AJUSTARFILAS; zekke English; page body untranslated MT | sources: ZK=https://raw.githubusercontent.com/zekke-io/zekke/main/src/lib/spreadsheets/function-names/es.json
         ("WRAPROWS", "AJUSTARFILAS"),
         ("XIRR", "TIR.NO.PER"),
         ("XLOOKUP", "BUSCARX"),
