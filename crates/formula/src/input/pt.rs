@@ -36,7 +36,7 @@ pub(super) const DIALECT: Dialect = Dialect {
         (CellError::Spill, "#DESPEJAR!"),
         (CellError::Calc, "#CALC!"),
     ],
-    table_items: ["#Tudo", "#Dados", "#Cabeçalhos", "#Totais", "#Esta Linha"],
+    table_items: ["#Tudo", "#Dados", "#Cabeçalhos", "#Totais", "#Esta linha"],
     functions: &[
         ("ACCRINT", "JUROSACUM"),
         ("ACCRINTM", "JUROSACUMV"),
@@ -301,7 +301,7 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("MDURATION", "MDURAÇÃO"),
         ("MEDIAN", "MED"),
         ("MID", "EXT.TEXTO"),
-        // reviewed: MS text-functions reference "Funções EXT.TEXTO, EXT.TEXTOB"; excelcalcula, excel-translator and LibreOffice pt-BR agree | sources: https://support.microsoft.com/pt-br/excel/text-functions-reference | http://excelcalcula.blogspot.com/2012/10/funcao-de-texto-exttexto.html | https://en.excel-translator.de/functions/text/
+        // reviewed: MS text-functions reference "Funções EXT.TEXTO, EXT.TEXTOB"; excelcalcula and excel-translator agree | sources: https://support.microsoft.com/pt-br/excel/text-functions-reference | http://excelcalcula.blogspot.com/2012/10/funcao-de-texto-exttexto.html | https://en.excel-translator.de/functions/text/
         ("MIDB", "EXT.TEXTOB"),
         ("MIN", "MÍNIMO"),
         ("MINA", "MÍNIMOA"),
@@ -384,7 +384,7 @@ pub(super) const DIALECT: Dialect = Dialect {
         ("RATE", "TAXA"),
         ("RECEIVED", "RECEBER"),
         ("REPLACE", "MUDAR"),
-        // reviewed: MS text-functions reference "Funções MUDAR, SUBSTITUIRB"; excelcalcula (old pt-BR Microsoft article), LibreOffice pt-BR and excel-translator agree; the earlier MUDARB was a pattern guess | sources: https://support.microsoft.com/pt-br/excel/text-functions-reference | http://excelcalcula.blogspot.com/2012/10/funcao-de-texto-mudar.html | https://raw.githubusercontent.com/LibreOffice/translations/master/source/pt-BR/formula/messages.po
+        // reviewed: MS text-functions reference "Funções MUDAR, SUBSTITUIRB"; excelcalcula (old pt-BR Microsoft article) and excel-translator agree; the earlier MUDARB was a pattern guess | sources: https://support.microsoft.com/pt-br/excel/text-functions-reference | http://excelcalcula.blogspot.com/2012/10/funcao-de-texto-mudar.html | https://en.excel-translator.de/functions/text/
         ("REPLACEB", "SUBSTITUIRB"),
         ("RIGHT", "DIREITA"),
         ("RIGHTB", "DIREITAB"),
