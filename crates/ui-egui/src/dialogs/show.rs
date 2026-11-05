@@ -121,6 +121,17 @@ pub(crate) fn build_params(d: &Dialog) -> Json {
     v
 }
 
+/// The forecast end is a date or number the user typed, in the workbook's region, so Create
+/// Forecast Worksheet sends the region with it.
+fn with_typed_region(app: &SheetApp, cmd: &str, mut params: Json) -> Json {
+    if cmd == "data.forecastSheet"
+        && let Some(map) = params.as_object_mut()
+    {
+        map.insert("region".into(), json!(app.session.region().tag));
+    }
+    params
+}
+
 /// Takes and draws the active dialog, dispatches its body by name, consumes picture-inbox results, runs OK/confirm commands, handles Esc/close and restores the back-dialog stack.
 pub fn show(app: &mut SheetApp, ctx: &egui::Context) {
     let Some(mut d) = app.dialog.take() else { return };
@@ -430,13 +441,7 @@ pub fn show(app: &mut SheetApp, ctx: &egui::Context) {
         confirm = false;
     }
     if confirm && let Some(cmd) = d.command {
-        let mut params = build_params(&d);
-        // The forecast end is a date or number the user typed, in the workbook's region.
-        if cmd == "data.forecastSheet"
-            && let Some(map) = params.as_object_mut()
-        {
-            map.insert("region".into(), json!(app.session.region().tag));
-        }
+        let params = with_typed_region(app, cmd, build_params(&d));
         match app.run(cmd, params) {
             Ok(r) => {
                 open = false;
