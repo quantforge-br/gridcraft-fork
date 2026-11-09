@@ -4,6 +4,7 @@ use gridcraft_core::DateSystem;
 use gridcraft_core::date::{datetime_from_serial, max_serial};
 use gridcraft_core::region::{Grouping, Region};
 
+use crate::calendar::Calendar;
 use crate::decimal::{decimal_digits, fixed, fixed_from_digits};
 use crate::parse::{DatePart, Section, Tok};
 
@@ -59,9 +60,10 @@ pub(crate) fn render_general(sec: &Section, v: f64, width: usize, region: &Regio
     out
 }
 
-/// Renders a date/time from the section's tokens (or the region's, for `[$-F800]`). Month and day
-/// names and AM/PM are the region's. `None` when the serial is outside the supported range.
-pub(crate) fn render_date(toks: &[Tok], v: f64, sys: DateSystem, region: &Region) -> Option<Out> {
+/// Renders a date/time from the section's tokens (or the region's, for `[$-F800]`) in the section's
+/// calendar (`B2` shows Hijri dates in its own Arabic names). Month and day names and AM/PM are the
+/// region's. `None` when the serial is outside the supported range.
+pub(crate) fn render_date(toks: &[Tok], calendar: Calendar, v: f64, sys: DateSystem, region: &Region) -> Option<Out> {
     if !v.is_finite() || !(0.0..max_serial(sys) as f64 + 1.0).contains(&v) {
         return None;
     }
@@ -74,6 +76,11 @@ pub(crate) fn render_date(toks: &[Tok], v: f64, sys: DateSystem, region: &Region
         day += 1;
     }
     let total_ms = day.saturating_mul(86_400_000).saturating_add(ms);
+    // Under `B2`, Excel shows the 1900 system's fictitious 29 February (serial 60) as `#VALUE!`
+    // whenever a clock or calendar part is shown, even for `hh:mm` (`[h]` alone still works).
+    if calendar == Calendar::Hijri && sys == DateSystem::D1900 && day == 60 && toks.iter().any(|t| matches!(t, Tok::Date(d) if !d.is_elapsed())) {
+        return None;
+    }
     let needs_date = toks.iter().any(|t| matches!(t, Tok::Date(d) if d.is_calendar()));
     let dt = if needs_date { datetime_from_serial(sys, day as f64)? } else { datetime_from_serial(sys, 0.0).unwrap_or_default() };
     let ampm = toks.iter().any(|t| matches!(t, Tok::Date(DatePart::AmPm | DatePart::AP(..))));
@@ -84,12 +91,20 @@ pub(crate) fn render_date(toks: &[Tok], v: f64, sys: DateSystem, region: &Region
     let second = (ms / 1000) % 60;
     let milli = ms % 1000;
     let pad = |n: i64, w: u8| if w >= 2 { format!("{:0w$}", n, w = w.min(20) as usize) } else { n.to_string() };
-    let month_idx = (dt.month as usize).wrapping_sub(1);
-    let month_full = region.month_name(dt.month, with_day);
-    let month_abbr = region.months_abbr.get(month_idx).copied().unwrap_or("");
-    let month_initial = region.months.get(month_idx).and_then(|m| m.chars().next()).map(String::from).unwrap_or_default();
-    let day_full = region.weekdays.get(dt.weekday as usize).copied().unwrap_or("");
-    let day_abbr = region.weekdays_abbr.get(dt.weekday as usize).copied().unwrap_or("");
+    // No date in the section's calendar (serial 60 under `B2`): shown like an out-of-range date.
+    let date = calendar.date(&dt)?;
+    let hijri = calendar == Calendar::Hijri;
+    // `B2` shows the Hijri calendar's own Arabic names; otherwise the region names the months and weekdays.
+    let month_idx = (date.month as usize).wrapping_sub(1);
+    let month_full = if hijri { date.month_name } else { region.month_name(date.month, with_day) };
+    let month_abbr = if hijri { date.month_short } else { region.months_abbr.get(month_idx).copied().unwrap_or("") };
+    let month_initial = if hijri {
+        date.month_name.chars().take(1).collect()
+    } else {
+        region.months.get(month_idx).and_then(|m| m.chars().next()).map(String::from).unwrap_or_default()
+    };
+    let day_full = if hijri { date.day_name } else { region.weekdays.get(dt.weekday as usize).copied().unwrap_or("") };
+    let day_abbr = if hijri { date.day_short } else { region.weekdays_abbr.get(dt.weekday as usize).copied().unwrap_or("") };
     let mut out = Out::default();
     for t in toks {
         match t {
@@ -97,19 +112,19 @@ pub(crate) fn render_date(toks: &[Tok], v: f64, sys: DateSystem, region: &Region
                 let s = match *d {
                     DatePart::Year(n) => {
                         if n <= 2 {
-                            format!("{:02}", dt.year.rem_euclid(100))
+                            format!("{:02}", date.year.rem_euclid(100))
                         } else {
-                            format!("{:04}", dt.year)
+                            format!("{:04}", date.year)
                         }
                     }
                     DatePart::Month(n) => match n {
-                        1 | 2 => pad(dt.month as i64, n),
+                        1 | 2 => pad(date.month as i64, n),
                         3 => month_abbr.to_string(),
                         5 => month_initial.clone(),
                         _ => month_full.to_string(),
                     },
                     DatePart::Day(n) => match n {
-                        1 | 2 => pad(dt.day as i64, n),
+                        1 | 2 => pad(date.day as i64, n),
                         3 => day_abbr.to_string(),
                         _ => day_full.to_string(),
                     },
