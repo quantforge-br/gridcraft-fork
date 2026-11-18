@@ -5444,6 +5444,20 @@ fn canonical_filter_values_follow_the_dropdown_labels() {
     assert_eq!(hidden(&s), vec![1, 3]);
 }
 
+/// The dropdown lists at most a million rows, but a label below them still decides its checkbox.
+#[test]
+fn a_label_past_the_dropdown_cap_still_blocks_the_canonical_spelling() {
+    let mut s = s();
+    s.execute("range.setValues", json!({"range": "A1", "values": [["n"], [1234]]})).unwrap();
+    s.execute("home.numberFormat", json!({"range": "A2", "code": "#,##0"})).unwrap();
+    s.execute("cell.set", json!({"cell": "A1000003", "input": "'1234"})).unwrap();
+    s.execute("data.filter", json!({"range": "A1:A1000003"})).unwrap();
+    s.execute("data.filterBy", json!({"column": "A", "values": ["1234"]})).unwrap();
+    let wb = &s.doc().unwrap().wb;
+    assert!(wb.sheet(0).unwrap().is_row_hidden(1), "A2 shows 1,234 and `1234` is A1000003's label");
+    assert!(crate::cmd::data::filter_values(wb, 0, 0).contains(&("1,234".to_string(), false)));
+}
+
 /// "Set precision as displayed" (formulas.calculationOptions `precisionAsDisplayed`). Behaviour
 /// observed in Excel through COM with synthetic values: turning it on rounds existing constants
 /// and formulas to their formats; constants typed or reformatted while it is on are rounded at
