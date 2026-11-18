@@ -82,12 +82,13 @@ pub(crate) fn render_text_within(sec: &Section, text: &str, max_units: usize) ->
     Some(out)
 }
 
-/// Renders a number through a General section (literals around the General keyword).
-pub(crate) fn render_general(sec: &Section, v: f64, width: usize, region: &Region) -> Out {
+/// Renders a number through a General section: `general` (the number already written as General)
+/// with the section's literals around it.
+pub(crate) fn render_general(sec: &Section, general: &str) -> Out {
     let mut out = Out::default();
     for t in &sec.toks {
         match t {
-            Tok::General => out.push(&crate::general_fit_in(v, width, region).unwrap_or_else(|| "#".repeat(width.clamp(1, 11)))),
+            Tok::General => out.push(general),
             Tok::Fill(c) => out.fill(*c),
             other => out.push_tok(other),
         }
